@@ -65,7 +65,7 @@ Game.prototype = {
         this.centerObstacle =  new Obstacle(game.world.centerX, game.world.centerY, 0.5, 0.5);
         obstacles.add(this.centerObstacle.sprite);
         var randomTime = Math.floor(Math.random() * 10000) + 5000;
-        game.time.events.repeat(randomTime, 1, function() {
+        game.time.events.repeat(5000, 1, function() {
             this.centerObstacle.sprite.destroy();
         }.bind(this), game);
 
