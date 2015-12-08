@@ -11,6 +11,7 @@ $(document).ready(function () {
     var playerColor;
     var colors = ['#00cc00', '#1a1aff', '#ffff00', '#ffa31a'];
 
+    // $('#controls').webkitRequestFullscreen();
 
     socket.on('invalid-room', function() {
         $('#error-message').show();
@@ -19,6 +20,10 @@ $(document).ready(function () {
     //** JOIN GAME ROOM **//
     $('#join').on('click', function() {
         var gameRoom = $('#user-input').val();
+
+        // Scroll to 0 to make some mobile browser go into fullscreen mode
+        var el = document.getElementById('controls');
+        el.webkitRequestFullscreen();
 
         // sends new-player event to server to join controller to game room
         socket.emit('new-player', {gameRoom: gameRoom});
@@ -37,7 +42,9 @@ $(document).ready(function () {
             $('#controls').show();
             $('#game-room-input').hide();
             setInterval(updateGame, 30);
+
         });
+
     });
 
 
@@ -88,6 +95,8 @@ $(document).ready(function () {
         event.preventDefault();
         right = 1;
     });
+
+
 
     function updateGame() {
         // sends game-update to server with the players input and player number

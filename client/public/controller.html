@@ -23,6 +23,9 @@
       <h2>Invalid Game ID. Please enter valid Game ID.</h2>
   </div>
 
+  <!-- image for phone orientation -->
+  <div id="orientation"></div>
+
   <!-- html for controller -->
   <div id="controls">
     <div id="left-track" class="col-xs-3"></div>
@@ -32,6 +35,47 @@
     <div id="right-track" class="col-xs-3"></div>
   </div>
 
+  <script type="text/javascript">
+    // document.fullscreenEnabled = document.fullscreenEnabled || document.mozFullScreenEnabled || document.documentElement.webkitRequestFullScreen;
+    //
+    // function requestFullscreen(element) {
+    //     if (element.requestFullscreen) {
+    //         element.requestFullscreen();
+    //     } else if (element.mozRequestFullScreen) {
+    //         element.mozRequestFullScreen();
+    //     } else if (element.webkitRequestFullScreen) {
+    //         element.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+    //     }
+    // }
+    //
+    // if (document.fullscreenEnabled) {
+    //     requestFullscreen(document.body);
+    // }
+
+
+
+  function handleOrientationChange() {
+     switch(window.orientation) {
+        case -90:
+        case 90:
+            // $('#game-room-input').show();
+            // $('#orientation').hide();
+            // window.scrollTo(0, 1);
+            break;
+        default:
+            // $('#game-room-input').hide();
+            // $('#orientation').show();
+            // window.scrollTo(0, 1);
+        
+            break;
+        }
+    }
+
+    window.addEventListener('orientationchange', doOnOrientationChange);
+
+    // Initial execution if needed
+    handleOrientationChange();
+  </script>
   <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
   <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
