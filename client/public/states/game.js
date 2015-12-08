@@ -485,5 +485,9 @@ Phaser.Filter.Glow = function (game) {
     ];
 };
 
+function multiView(id) {
+    alert('test');
+}
+
 Phaser.Filter.Glow.prototype = Object.create(Phaser.Filter.prototype);
 Phaser.Filter.Glow.prototype.constructor = Phaser.Filter.Glow;
