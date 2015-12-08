@@ -58,4 +58,4 @@ GameOver.prototype = {
     update: function() {
 
     }
-}
+};

@@ -5,7 +5,7 @@ var bullets;
 var land;
 var powerup;
 var rainbowColor = [0xffff00, 0x80ff00, 0x0000ff, 0xff00ff, 0xff0000];
-var colors = [0x00cc00, 0x1a75ff, 0xe5e600, 0xe67300];
+var colors = [0x00cc00, 0x1a1aff, 0xffff00, 0xffa31a];
 var timer;
 var obstacles;
 var inputs = [];
@@ -357,41 +357,28 @@ Tank.prototype = {
         }
     },
     die: function() {
-        //create sprites for each debris piece
-        var piece1 = game.add.sprite(this.sprite.x, this.sprite.y, 'tank'+ (this.controller) + 'debris1');
-        var piece2 = game.add.sprite(this.sprite.x, this.sprite.y, 'tank' + (this.controller) + 'debris2');
-        var piece3 = game.add.sprite(this.sprite.x, this.sprite.y, 'tank' + (this.controller) + 'debris3');
-
-        //enable physics on each debris piece and set tint
-        game.physics.enable(piece1, Phaser.Physics.ARCADE);
-        game.physics.enable(piece2, Phaser.Physics.ARCADE);
-        game.physics.enable(piece3, Phaser.Physics.ARCADE);
-        piece1.anchor.set(0.5, 0.5);
-        piece2.anchor.set(0.5, 0.5);
-        piece3.anchor.set(0.5, 0.5);
-        piece1.tint = colors[this.controller];
-        piece2.tint = colors[this.controller];
-        piece3.tint = colors[this.controller];
-        piece1.outOfBoundsKill = true;
-        piece2.outOfBoundsKill = true;
-        piece3.outOfBoundsKill = true;
-
-        // Take player out of players array
-        // players.splice(this.controller, 1);
-
         //shoot out pieces and specified angle and velocities
         var angle1 = (Math.random() * 90);
         var angle2 = (Math.random() * 90) + 90;
         var angle3 = -(Math.random() * 90) - 45;
-        game.physics.arcade.velocityFromAngle(angle1, 200, piece1.body.velocity);
-        game.physics.arcade.velocityFromAngle(angle2, 200, piece2.body.velocity);
-        game.physics.arcade.velocityFromAngle(angle3, 200, piece3.body.velocity);
 
-        //adds spin to each piece of debris
-        piece1.body.angularVelocity = 400;
-        piece2.body.angularVelocity = 400;
-        piece3.body.angularVelocity = 400;
+        for (var i = 1; i <= 3; i++) {
+            var piece = game.add.sprite(this.sprite.x, this.sprite.y, 'tank' + this.controller + 'debris' + i);
+            game.physics.enable(piece, Phaser.Physics.ARCADE);
+            piece.anchor.set(0.5, 0.5);
+            piece.tint = colors[this.controller];
+            piece.outOfBoundsKill = true;
+            piece.body.angularVelocity = 400;
+            if (i === 1) {
+                game.physics.arcade.velocityFromAngle(angle1, 200, piece.body.velocity);
+            } else if (i === 2) {
+                game.physics.arcade.velocityFromAngle(angle2, 200, piece.body.velocity);
+            } else {
+                game.physics.arcade.velocityFromAngle(angle3, 200, piece.body.velocity);
+            }
 
+        }
+        
         //** PARTICLE STROM ON DEATH **//
         emitter = game.add.emitter(this.sprite.x, this.sprite.y, 200);
         emitter.makeParticles('tankBurst');

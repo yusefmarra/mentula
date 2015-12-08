@@ -9,7 +9,9 @@ html, body, #controls {
 
 #left-track,
 #right-track {
-  background-color: white;
+  background-color: black;
+  background-size: cover;
+  border: 20px solid white;
   min-height: 100%;
 }
 

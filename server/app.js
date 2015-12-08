@@ -52,10 +52,11 @@ io.on('connection', function(socket){
             } else {
               rooms[data.gameRoom].players = 1;
             }
-            console.log('Phone Controller: room ' + data.gameRoom)
+            console.log('Phone Controller: room ' + data.gameRoom);
             io.sockets.in(rooms[socket.room].id).emit('player-joined', rooms[data.gameRoom].players);
             //send unqiue player identifier to controller
-            socket.emit('success-join', rooms[data.gameRoom].players - 1);
+            var playerId = rooms[data.gameRoom].players - 1;
+            socket.emit('success-join', playerId);
 
             // check to see if there is more than one player, to start the game then emits start-game event to viewer
             if (rooms[data.gameRoom].players >= 1) {
