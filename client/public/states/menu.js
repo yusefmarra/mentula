@@ -1,5 +1,7 @@
+var self;
+
 function Menu() {
-    var self = this;
+    self = this;
     this.gameRoom;
     this.viewerId;
     this.playerCount;
@@ -37,6 +39,7 @@ Menu.prototype = {
         game.add.existing(this.instructions);
         socket.on('player-joined', function(data) {
             this.playerCount ? this.playerCount++ : this.playerCount = 1;
+            console.log('Player ', this.playerCount, ' joined.')
             this.addPlayerBox();
             if (this.playerCount > 1) {
                 this.addMenuStart();
@@ -74,8 +77,8 @@ Menu.prototype = {
             txt.anchor.setTo(0.5, 0.5);
 
 
-            if (self.playerCount >= 1) {
-                self.addMenuStart();
+            if (this.playerCount > 1) {
+                this.addMenuStart();
             }
             target.destroy();
         }.bind(this);
@@ -149,9 +152,21 @@ Menu.prototype = {
         }
     },
     preload: function () {
-        this.playerCount;
+
     },
     update: function() {
 
     }
 };
+
+function multiView(id) {
+    socket.emit('multi-view', id);
+    socket.on('multi-view', function(playerCount) {
+        socket.emit('end-game', self.gameRoom)
+        playerCount ? self.playerCount = playerCount : self.playerCount = 0;
+    });
+    socket.on('game-started', function() {
+        console.log('game-started event');
+        game.state.start('Game', true, false, self.playerCount);
+    });
+}

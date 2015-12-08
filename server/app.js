@@ -100,6 +100,17 @@ io.on('connection', function(socket){
     socket.on('game-started', function(data) {
         console.log('Starting Game Number: ', data.gameRoom);
         rooms[data.gameRoom].started = true;
+        io.sockets.in(rooms[data.gameRoom].id).emit('game-started');
+    });
+
+    socket.on('multi-view', function(id) {
+        socket.join(rooms[id].id);
+        socket.emit('multi-view', rooms[id].players);
+    });
+
+    socket.on('end-game', function(id) {
+        console.log('Ending Game: ', id);
+        rooms[id] = null;
     });
 
     // socket.on('disconnect', function() {

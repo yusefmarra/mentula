@@ -456,6 +456,7 @@ function createMap1() {
     obstacles.add(new Obstacle(game.world.width - game.world.width / 4, game.world.height - game.world.height/2, 1.5, 0.5).sprite);
 }
 
+
 Phaser.Filter.Glow = function (game) {
     Phaser.Filter.call(this, game);
 
@@ -484,10 +485,6 @@ Phaser.Filter.Glow = function (game) {
         '}'
     ];
 };
-
-function multiView(id) {
-    alert('test');
-}
 
 Phaser.Filter.Glow.prototype = Object.create(Phaser.Filter.prototype);
 Phaser.Filter.Glow.prototype.constructor = Phaser.Filter.Glow;
